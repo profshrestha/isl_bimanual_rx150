@@ -87,7 +87,18 @@ def apply_drives(arm):
 apply_drives('arm_left')
 apply_drives('arm_right')
 
-# ── 8. ROS2 Mirror Bridge ─────────────────────────────────────────────────────
+# ── 8. Arm color (match physical RX150 — matte black) ─────────────────────────
+# Traverse all geometry prims under each arm and set display color.
+# Physical RX150: black anodized links + black Dynamixel servos.
+ARM_COLOR = Gf.Vec3f(0.04, 0.04, 0.04)  # matte black
+
+for prim in stage.Traverse():
+    path = str(prim.GetPath())
+    if path.startswith('/World/arm_') and prim.IsA(UsdGeom.Gprim):
+        UsdGeom.Gprim(prim).GetDisplayColorAttr().Set([ARM_COLOR])
+print("Arm color set to matte black")
+
+# ── 9. ROS2 Mirror Bridge ─────────────────────────────────────────────────────
 # Mirrors xs_sdk joint_states (sim or real) → Isaac Sim USD drives.
 # No separate bridge script needed — same pattern as isaac_single_rx150_setup.py
 import rclpy

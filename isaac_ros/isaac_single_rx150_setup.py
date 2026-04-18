@@ -97,7 +97,17 @@ def apply_drives(arm_path):
 
 apply_drives(ARM_PATH)
 
-# ── 7. ROS2 Mirror Bridge ─────────────────────────────────────────────────────
+# ── 7. Arm color (match physical RX150 — matte black) ───────────────────────
+# Traverse all geometry prims under the arm and set display color.
+# Physical RX150: black anodized links + black Dynamixel servos.
+ARM_COLOR = Gf.Vec3f(0.04, 0.04, 0.04)  # matte black
+
+for prim in stage.Traverse():
+    if str(prim.GetPath()).startswith(ARM_PATH) and prim.IsA(UsdGeom.Gprim):
+        UsdGeom.Gprim(prim).GetDisplayColorAttr().Set([ARM_COLOR])
+print("Arm color set to matte black")
+
+# ── 8. ROS2 Mirror Bridge ─────────────────────────────────────────────────────
 import rclpy
 import rclpy.node
 from sensor_msgs.msg import JointState
