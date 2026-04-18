@@ -7,7 +7,7 @@ Workflow:
   1. source ~/isaaclab/bin/activate && isaacsim
   2. Window > Script Editor > File > Open > this file > Run
   3. Hit PLAY
-  4. python3 /var/isl_robotics_shared/dual-rx150-demo-sparse/working_scripts/rx150_single_sequence.py
+  4. python3 /var/isl_robotics_shared/dual-rx150-demo-sparse/arm_move_scripts/rx150_single_sequence.py
      (sim mode, no --real)
 
   OR with physical arm:
@@ -155,6 +155,6 @@ asyncio.ensure_future(spin_bridge())
 print("=" * 50)
 print("SETUP COMPLETE")
 print("1. Hit PLAY in Isaac Sim")
-print("2. python3 /var/isl_robotics_shared/dual-rx150-demo-sparse/working_scripts/rx150_single_sequence.py")
+print("2. python3 /var/isl_robotics_shared/dual-rx150-demo-sparse/arm_move_scripts/rx150_single_sequence.py")
 print("   (add --real if physical arm is connected)")
 print("=" * 50)

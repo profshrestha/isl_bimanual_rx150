@@ -22,8 +22,8 @@ omni.kit.commands.execute("CreateReference",
 xf = UsdGeom.Xformable(stage.GetPrimAtPath("/World/arm_left"))
 xf.ClearXformOpOrder()
 xf.AddTranslateOp().Set(Gf.Vec3d(0.0, +0.3273, 0.0))
-xf.AddRotateZOp().Set(-90.0)
-print("  arm_left at (0,+0.32733, 0) yaw=-90")
+xf.AddRotateZOp().Set(0.0)
+print("  arm_left at (0,+0.3273, 0) yaw=0 (faces +X)")
 
 # ── 2. Place arm_right ─────────────────────────────────────────────────────────
 print("Loading arm_right...")
@@ -34,8 +34,8 @@ omni.kit.commands.execute("CreateReference",
 xf = UsdGeom.Xformable(stage.GetPrimAtPath("/World/arm_right"))
 xf.ClearXformOpOrder()
 xf.AddTranslateOp().Set(Gf.Vec3d(0.0, -0.3273, 0.0))
-xf.AddRotateZOp().Set(90.0)
-print("  arm_right at (0, -0.3273, 0) yaw=90")
+xf.AddRotateZOp().Set(0.0)
+print("  arm_right at (0, -0.3273, 0) yaw=0 (faces +X)")
 
 # ── 3. Physics scene ───────────────────────────────────────────────────────────
 physics_scene = UsdPhysics.Scene.Define(stage, '/World/PhysicsScene')
@@ -144,6 +144,6 @@ asyncio.ensure_future(spin_bridge())
 print("=" * 50)
 print("SETUP COMPLETE — mirror bridge running")
 print("1. Hit PLAY in Isaac Sim")
-print("2. python3 /var/isl_robotics_shared/dual-rx150-demo-sparse/working_scripts/rx150_dual_sequence.py")
+print("2. python3 /var/isl_robotics_shared/dual-rx150-demo-sparse/arm_move_scripts/rx150_dual_sequence.py")
 print("   (add --real if both physical arms are connected)")
 print("=" * 50)

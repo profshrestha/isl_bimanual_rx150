@@ -36,7 +36,7 @@ pip install 'isaacsim[all,extscache]==4.5.0' --extra-index-url https://pypi.nvid
 ## Repository Structure
 
 ```
-working_scripts/
+arm_move_scripts/
   rx150_single_sequence.py   # Single arm sequence (self-contained)
   rx150_dual_sequence.py     # Dual arm sequence (self-contained)
 motor_configs/
@@ -55,12 +55,12 @@ rx150_usd/
 
 ### Simulation only
 ```bash
-python3 working_scripts/rx150_single_sequence.py
+python3 arm_move_scripts/rx150_single_sequence.py
 ```
 
 ### Real hardware
 ```bash
-python3 working_scripts/rx150_single_sequence.py --real
+python3 arm_move_scripts/rx150_single_sequence.py --real
 ```
 
 ### With Isaac Sim
@@ -76,8 +76,8 @@ In Isaac Sim **Script Editor** (`Window > Script Editor`):
 
 **Terminal 2 — Sequence:**
 ```bash
-python3 working_scripts/rx150_single_sequence.py        # sim
-python3 working_scripts/rx150_single_sequence.py --real # real hardware
+python3 arm_move_scripts/rx150_single_sequence.py        # sim
+python3 arm_move_scripts/rx150_single_sequence.py --real # real hardware
 ```
 
 ---
@@ -86,7 +86,7 @@ python3 working_scripts/rx150_single_sequence.py --real # real hardware
 
 ### Simulation only
 ```bash
-python3 working_scripts/rx150_dual_sequence.py
+python3 arm_move_scripts/rx150_dual_sequence.py
 ```
 
 ### Real hardware
@@ -102,7 +102,7 @@ Update the `port:` field in each motor config:
 
 Then run:
 ```bash
-python3 working_scripts/rx150_dual_sequence.py --real
+python3 arm_move_scripts/rx150_dual_sequence.py --real
 ```
 
 ### With Isaac Sim
@@ -118,8 +118,8 @@ In Isaac Sim **Script Editor** (`Window > Script Editor`):
 
 **Terminal 2 — Sequence:**
 ```bash
-python3 working_scripts/rx150_dual_sequence.py        # sim
-python3 working_scripts/rx150_dual_sequence.py --real # real hardware
+python3 arm_move_scripts/rx150_dual_sequence.py        # sim
+python3 arm_move_scripts/rx150_dual_sequence.py --real # real hardware
 ```
 
 ---

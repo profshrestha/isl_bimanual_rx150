@@ -17,9 +17,9 @@ Sequence:
   5. arm_left  → HOME → SLEEP
   6. arm_right → HOME → SLEEP
 
-World frame:
-  arm_left  (0, +0.3273, 0)  forward=-Y  waist- → faces +X audience
-  arm_right (0, -0.3273, 0)  forward=+Y  waist+ → faces +X audience
+World frame (both arms face +X):
+  arm_right (0, -0.3273, 0)  forward=+X  (yaw=0°)
+  arm_left  (0, +0.3273, 0)  forward=+X  (yaw=0°)
 """
 
 import sys
