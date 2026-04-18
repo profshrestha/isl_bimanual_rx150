@@ -8,7 +8,7 @@ import omni.usd
 import omni.kit.app
 import asyncio
 import builtins
-from pxr import UsdGeom, UsdPhysics, UsdShade, PhysxSchema, Gf, Sdf
+from pxr import UsdGeom, UsdPhysics, PhysxSchema, Gf, Sdf
 
 stage = omni.usd.get_context().get_stage()
 RX150_USD = "/var/isl_robotics_shared/dual-rx150-demo-sparse/rx150_usd/rx150.usd"
@@ -87,32 +87,7 @@ def apply_drives(arm):
 apply_drives('arm_left')
 apply_drives('arm_right')
 
-# ── 8. Arm material (match physical RX150 — matte black) ──────────────────────
-# Create an OmniPBR material and bind it with strongerThanDescendants so it
-# fully overrides any embedded sub-mesh materials inside the referenced USD.
-omni.kit.commands.execute('CreatePrimWithDefaultXform',
-    prim_type='Scope', prim_path='/World/Looks')
-
-mat_path = '/World/Looks/ArmMaterial'
-mat = UsdShade.Material.Define(stage, mat_path)
-
-shader = UsdShade.Shader.Define(stage, mat_path + '/Shader')
-shader.SetSourceAsset(Sdf.AssetPath('OmniPBR.mdl'), 'mdl')
-shader.SetSourceAssetSubIdentifier('OmniPBR', 'mdl')
-shader.CreateInput('diffuse_color_constant', Sdf.ValueTypeNames.Color3f).Set(Gf.Vec3f(0.04, 0.04, 0.04))
-shader.CreateInput('reflection_roughness_constant', Sdf.ValueTypeNames.Float).Set(0.7)
-shader.CreateInput('metallic_constant', Sdf.ValueTypeNames.Float).Set(0.0)
-
-mat.CreateSurfaceOutput('mdl').ConnectToSource(shader.ConnectableAPI(), 'out')
-mat.CreateDisplacementOutput('mdl').ConnectToSource(shader.ConnectableAPI(), 'out')
-mat.CreateVolumeOutput('mdl').ConnectToSource(shader.ConnectableAPI(), 'out')
-
-for arm_path in ['/World/arm_left', '/World/arm_right']:
-    binding = UsdShade.MaterialBindingAPI.Apply(stage.GetPrimAtPath(arm_path))
-    binding.Bind(mat, bindingStrength=UsdShade.Tokens.strongerThanDescendants)
-print("Arm material: OmniPBR matte black applied")
-
-# ── 9. ROS2 Mirror Bridge ─────────────────────────────────────────────────────
+# ── 8. ROS2 Mirror Bridge ─────────────────────────────────────────────────────
 # Mirrors xs_sdk joint_states (sim or real) → Isaac Sim USD drives.
 # No separate bridge script needed — same pattern as isaac_single_rx150_setup.py
 import rclpy
