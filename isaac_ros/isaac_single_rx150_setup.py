@@ -63,24 +63,19 @@ ground.GetAttribute('xformOp:translate').Set(Gf.Vec3d(0.0, 0.0, 0.0))
 ground.GetAttribute('xformOp:scale').Set(Gf.Vec3f(5.0, 5.0, 1.0))
 UsdPhysics.CollisionAPI.Apply(ground)
 
-# ── 4. Table ──────────────────────────────────────────────────────────────────
-omni.kit.commands.execute('CreateMeshPrimWithDefaultXform',
-    prim_type='Cube', prim_path='/World/Table')
-table = stage.GetPrimAtPath('/World/Table')
-table.GetAttribute('xformOp:translate').Set(Gf.Vec3d(0.15, 0.0, 0.015))
-table.GetAttribute('xformOp:scale').Set(Gf.Vec3f(0.12, 0.20, 0.03))
-UsdPhysics.CollisionAPI.Apply(table)
-
-# ── 5. Target cube ────────────────────────────────────────────────────────────
+# ── 4. Red target cube ───────────────────────────────────────────────────────
+# 35 mm cube centered at (0.3273, -0.3273, 0) m
+# USD default cube spans [-1,1] per axis → scale = half-extent = 0.035/2 = 0.0175
 omni.kit.commands.execute('CreateMeshPrimWithDefaultXform',
     prim_type='Cube', prim_path='/World/TargetCube')
 cube = stage.GetPrimAtPath('/World/TargetCube')
-cube.GetAttribute('xformOp:translate').Set(Gf.Vec3d(0.15, 0.0, 0.04))
-cube.GetAttribute('xformOp:scale').Set(Gf.Vec3f(0.02, 0.02, 0.02))
+cube.GetAttribute('xformOp:translate').Set(Gf.Vec3d(0.3273, -0.3273, 0.0))
+cube.GetAttribute('xformOp:scale').Set(Gf.Vec3f(0.0175, 0.0175, 0.0175))
+UsdGeom.Gprim(cube).GetDisplayColorAttr().Set([(1.0, 0.0, 0.0)])  # red
 UsdPhysics.RigidBodyAPI.Apply(cube)
 UsdPhysics.CollisionAPI.Apply(cube)
-UsdPhysics.MassAPI.Apply(cube).CreateMassAttr().Set(0.1)
-print("Ground, table, cube added")
+UsdPhysics.MassAPI.Apply(cube).CreateMassAttr().Set(0.05)
+print("Red 35mm cube added at (0.3273, -0.3273, 0)")
 
 # ── 6. Joint drives ───────────────────────────────────────────────────────────
 def apply_drives(arm_path):
